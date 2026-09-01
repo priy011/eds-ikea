@@ -1,0 +1,41 @@
+{
+  "variantName": "cards-editorial",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-08-26T06:58:12.176Z",
+  "sourceContext": {
+    "originUrl": "https://www.ikea.com/in/en/",
+    "originPage": "IKEA India homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "accent",
+    "density": "spacious",
+    "purpose": "overlay-mosaic",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "full-bleed image with overlaid heading + link per card",
+    "buttonCount": 0,
+    "imageCount": 5
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "editorial mosaics with text overlaid on large images"
+    ],
+    "notSuitableFor": [
+      "simple caption-below-image tiles",
+      "image-only galleries"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/in/en/index"
+    ],
+    "sections": [
+      "rc14"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-26T06:58:12.176Z"
+  }
+}

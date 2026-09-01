@@ -143,6 +143,167 @@ function decorateButtons(main) {
 }
 
 /**
+ * Replaces the "Handpicked bundles for your home" carousel-teaser block with the
+ * interactive `bundles` block. The bundle/product data (4-image grid, hover
+ * lifestyle image, and the click-popup product list with prices) is client-
+ * rendered and click-gated on the source site, so it cannot be captured by the
+ * import pipeline; the bundles block renders it from embedded data instead.
+ * @param {Element} main The container element
+ */
+function buildBundlesBlock(main) {
+  const heading = [...main.querySelectorAll('h2, h3')]
+    .find((h) => /handpicked bundles/i.test(h.textContent));
+  if (!heading) return;
+  // The whole homepage is one section, so scope to the wrapper that follows the
+  // heading: walk forward from the heading's block wrapper to the next
+  // carousel-teaser wrapper (the imported bundles showcase).
+  const headingWrapper = heading.closest('div');
+  let node = headingWrapper ? headingWrapper.nextElementSibling : null;
+  let placeholder = null;
+  while (node) {
+    if (node.classList.contains('carousel-teaser')
+      || node.querySelector?.('.carousel-teaser')) {
+      placeholder = node.classList.contains('carousel-teaser')
+        ? node : node.querySelector('.carousel-teaser');
+      break;
+    }
+    // stop if we hit the next section heading (another showcase begins)
+    if (node.querySelector?.('h2, h3')) break;
+    node = node.nextElementSibling;
+  }
+  if (!placeholder) return;
+  const bundles = buildBlock('bundles', { elems: [] });
+  placeholder.replaceWith(bundles);
+}
+
+/**
+ * Injects the "Looks by you" (carousel-gallery) and "Design inspiration"
+ * (cards-inspiration) gallery blocks after their headings. Both are lazy-loaded,
+ * Turnstile-gated feeds on the source that the import pipeline can't capture, so
+ * they arrive as heading-only sections. Each injected block self-seeds its tiles
+ * from embedded harvested data (see the block's *-data.js).
+ * @param {Element} main The container element
+ */
+function buildGalleryBlocks(main) {
+  const galleries = [
+    { re: /looks by you/i, name: 'carousel-gallery' },
+    { re: /design inspiration/i, name: 'cards-inspiration' },
+  ];
+  galleries.forEach(({ re, name }) => {
+    if (main.querySelector(`.${name}`)) return; // already present
+    const heading = [...main.querySelectorAll('h2, h3')].find((h) => re.test(h.textContent));
+    if (!heading) return;
+    // Both gallery headings live in the same default-content wrapper, so insert
+    // the block directly after its own heading (not after the shared wrapper) to
+    // keep each gallery under the correct title. The block stays a section-level
+    // child, so decorateBlocks still picks it up.
+    const block = buildBlock(name, { elems: [] });
+    heading.after(block);
+  });
+}
+
+/**
+ * Tags the "What's hot & trending?" carousel-teaser as a static full-width grid.
+ * On the source this row is not a scrolling carousel -- its four cards spread
+ * evenly across the full content width. The imported block is a generic
+ * carousel-teaser, so we mark just this instance with `teaser-grid`; CSS then
+ * lays the cards out as a grid and hides the carousel arrows/indicators.
+ * @param {Element} main The container element
+ */
+function buildHotTrendingGrid(main) {
+  const heading = [...main.querySelectorAll('h2, h3')]
+    .find((h) => /hot\s*&?\s*trending/i.test(h.textContent));
+  if (!heading) return;
+  const headingWrapper = heading.closest('div');
+  let node = headingWrapper ? headingWrapper.nextElementSibling : null;
+  while (node) {
+    const teaser = node.classList.contains('carousel-teaser')
+      ? node : node.querySelector?.('.carousel-teaser');
+    if (teaser) { teaser.classList.add('teaser-grid'); return; }
+    // stop if we reach the next section heading
+    if (node.querySelector?.('h2, h3')) return;
+    node = node.nextElementSibling;
+  }
+}
+
+/**
+ * Groups runs of consecutive hero-promo blocks into a bento layout container.
+ * The IKEA homepage "Storage offer" bento is authored as one large hero followed
+ * by four offer tiles; each is a separate hero-promo block. Wrapping them in a
+ * `.bento` container lets CSS arrange them as a grid (hero left, 2x2 tiles right)
+ * instead of five full-width bands stacked vertically.
+ * @param {Element} main The main container element
+ */
+function buildBentoLayout(main) {
+  const wrappers = [...main.querySelectorAll('.hero-promo-wrapper')];
+  let run = [];
+  const flush = () => {
+    if (run.length >= 2) {
+      const bento = document.createElement('div');
+      bento.className = 'bento';
+      run[0].parentElement.insertBefore(bento, run[0]);
+      run.forEach((w) => bento.append(w));
+    }
+    run = [];
+  };
+  wrappers.forEach((w) => {
+    if (run.length === 0 || run[run.length - 1].nextElementSibling === w) {
+      run.push(w);
+    } else {
+      flush();
+      run.push(w);
+    }
+  });
+  flush();
+}
+
+/**
+ * Removes stray text lines the importer captured that don't appear on the live
+ * site: the "Skip to main content" / "Skip listing" a11y links, section headings
+ * the live layout has no visible title for (Welcome / Explore more offers), the
+ * "IKEA Family offers" sub-labels above the deals carousel, the feed helper line
+ * ("Ideas based on your recently viewed products"), and the "IKEA Family offers"
+ * promo blurb + image cluster before the editorial mosaic. Runs on section-level
+ * default content only, so block markup is never touched.
+ * @param {Element} main The container element
+ */
+function removeStrayHeadings(main) {
+  // Exact section-level text lines to drop (whole element removed).
+  const dropExact = [
+    /^skip to main content$/i,
+    /^skip listing$/i,
+    /^welcome to ikea india$/i,
+    /^explore more offers$/i,
+    /^ideas based on your recently viewed products$/i,
+    /^ikea family offers$/i,
+    /^ikea family offers\s*our lowest price\s*last chance$/i,
+  ];
+  main.querySelectorAll('.default-content-wrapper > h1, .default-content-wrapper > h2, .default-content-wrapper > h3, .default-content-wrapper > p')
+    .forEach((el) => {
+      const txt = el.textContent.replace(/\s+/g, ' ').trim();
+      if (dropExact.some((re) => re.test(txt))) el.remove();
+    });
+
+  // The "IKEA Family offers / Every saving helps..." cluster is a whole wrapper
+  // (heading + blurb + image) that the live editorial mosaic doesn't show.
+  const blurb = [...main.querySelectorAll('.default-content-wrapper > p')]
+    .find((p) => /^every saving helps/i.test(p.textContent.trim()));
+  if (blurb) {
+    const wrap = blurb.closest('.default-content-wrapper');
+    // only strip the blurb + its trailing image, and the now-empty heading above
+    const img = wrap.querySelector('p:has(picture, img), picture, img');
+    if (img) (img.closest('p') || img).remove();
+    blurb.remove();
+  }
+
+  // Drop any content wrapper left empty by the removals above (else its section
+  // margin leaves a blank gap).
+  main.querySelectorAll('.default-content-wrapper').forEach((wrap) => {
+    if (!wrap.textContent.trim() && !wrap.querySelector('picture, img, .block')) wrap.remove();
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -151,7 +312,12 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  removeStrayHeadings(main);
+  buildBundlesBlock(main);
+  buildGalleryBlocks(main);
+  buildHotTrendingGrid(main);
   decorateBlocks(main);
+  buildBentoLayout(main);
   decorateButtons(main);
 }
 

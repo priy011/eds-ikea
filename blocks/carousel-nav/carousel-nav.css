@@ -1,0 +1,126 @@
+/* Block: carousel-nav
+ * IKEA India in-page category shortcut strip.
+ * Compact horizontally-scrollable row of small tiles (80x80 image + label),
+ * preceded by promo/offer tiles. Values extracted from source computed styles.
+ * This file intentionally overrides the boilerplate full-width carousel styling.
+ */
+
+.carousel-nav {
+  margin: 0;
+}
+
+.carousel-nav .carousel-nav-slides-container {
+  position: relative;
+}
+
+/* --- Horizontal scroll strip --- */
+.carousel-nav .carousel-nav-slides {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow: auto hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: none;
+}
+
+.carousel-nav .carousel-nav-slides::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Tile card --- */
+.carousel-nav .carousel-nav-slide {
+  flex: 0 0 auto;
+  width: 150px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: static;
+  padding: 8px 0;
+  background-color: var(--light-color);
+  border-radius: 4px;
+}
+
+/* --- Image box: fixed 80x80 square at top of card --- */
+.carousel-nav .carousel-nav-slide .carousel-nav-slide-image {
+  position: static;
+  width: 80px;
+  height: 80px;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+
+.carousel-nav .carousel-nav-slide .carousel-nav-slide-image picture {
+  position: static;
+  inset: auto;
+  display: block;
+  width: 80px;
+  height: 80px;
+}
+
+.carousel-nav .carousel-nav-slide .carousel-nav-slide-image img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+
+  /* The product photos ship with a baked-in white background. multiply blends
+     that white into the grey card so only the product shows (no white box). */
+  mix-blend-mode: multiply;
+}
+
+/* Empty image cell (promo / Offers tiles have no picture) keeps card alignment.
+   Transparent -- the live nav sits the image directly on the grey card with no
+   white box behind it. */
+.carousel-nav .carousel-nav-slide .carousel-nav-slide-image:empty {
+  background-color: transparent;
+}
+
+/* --- Label / content --- */
+.carousel-nav .carousel-nav-slide .carousel-nav-slide-content {
+  position: static;
+  z-index: auto;
+  margin: 0;
+  padding: 0 6px;
+  width: 100%;
+  color: var(--dark-color);
+  background-color: transparent;
+  text-align: center;
+}
+
+.carousel-nav .carousel-nav-slide .carousel-nav-slide-content p {
+  margin: 0;
+}
+
+.carousel-nav .carousel-nav-slide .carousel-nav-slide-content a {
+  display: inline-block;
+  color: var(--dark-color);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-decoration: none;
+}
+
+.carousel-nav .carousel-nav-slide .carousel-nav-slide-content a:hover {
+  text-decoration: underline;
+}
+
+/* --- Hide carousel dots and prev/next arrows (source is a plain scroll strip) --- */
+.carousel-nav .carousel-nav-slide-indicators,
+.carousel-nav nav[aria-label],
+.carousel-nav .carousel-nav-navigation-buttons {
+  display: none;
+}
+
+@media (width >= 900px) {
+  .carousel-nav .carousel-nav-slides {
+    gap: 20px;
+  }
+}

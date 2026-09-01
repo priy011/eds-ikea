@@ -1,0 +1,41 @@
+{
+  "variantName": "hero-promo",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-08-26T06:58:12.176Z",
+  "sourceContext": {
+    "originUrl": "https://www.ikea.com/in/en/",
+    "originPage": "IKEA India homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "accent",
+    "density": "spacious",
+    "purpose": "promo-banner",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "background image + headline + supporting text + CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "full-width promotional banners with background imagery and a single CTA"
+    ],
+    "notSuitableFor": [
+      "text-only heros",
+      "multi-item layouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/in/en/index"
+    ],
+    "sections": [
+      "rc7#1"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-26T06:58:12.176Z"
+  }
+}

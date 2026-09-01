@@ -1,0 +1,115 @@
+/* cards-inspiration -- image-forward inspiration gallery
+   Values extracted from IKEA India homepage (LongFeedImc / ShoppableImage grid):
+   grid gap 20px, portrait 3/4 tiles, object-fit cover, no border, no border-radius,
+   transparent tiles, centered load-more. Mobile 2 cols, desktop 3 cols. */
+
+/* filter tabs -- horizontally scrollable pill row above the grid
+   (matches the live "More inspiration like this" tablist) */
+.cards-inspiration .cards-inspiration-filters {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 12px;
+  margin: 0 0 24px;
+  padding-bottom: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cards-inspiration .cards-inspiration-filters::-webkit-scrollbar {
+  display: none;
+}
+
+.cards-inspiration .cards-inspiration-filter {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 10px 20px;
+  border: 1px solid var(--light-color);
+  border-radius: 40px;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-s);
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.cards-inspiration .cards-inspiration-filter:hover,
+.cards-inspiration .cards-inspiration-filter:focus-visible {
+  border-color: var(--dark-color);
+}
+
+.cards-inspiration .cards-inspiration-filter[aria-selected='true'] {
+  background-color: transparent;
+  border-color: var(--dark-color);
+  color: var(--dark-color);
+}
+
+.cards-inspiration > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.cards-inspiration > ul > li[hidden] {
+  display: none;
+}
+
+@media (width >= 900px) {
+  .cards-inspiration > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.cards-inspiration > ul > li {
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* image tile -- portrait 3/4, cover crop (matches source ShoppableImage wrapper) */
+.cards-inspiration .cards-inspiration-card-image {
+  line-height: 0;
+}
+
+.cards-inspiration .cards-inspiration-card-image picture,
+.cards-inspiration .cards-inspiration-card-image img {
+  display: block;
+  width: 100%;
+}
+
+.cards-inspiration .cards-inspiration-card-image img {
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+/* optional caption/body -- minimal on this variant; hide when empty */
+.cards-inspiration .cards-inspiration-card-body {
+  margin: 12px 0 0;
+  font-size: var(--body-font-size-s);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.cards-inspiration .cards-inspiration-card-body:empty {
+  display: none;
+}
+
+.cards-inspiration .cards-inspiration-card-body a {
+  color: var(--dark-color);
+  font-weight: 700;
+}
+
+/* load-more affordance -- centered, spaced (source button wrapper margin 40px 0, centered) */
+.cards-inspiration .button-container {
+  margin: 40px 0 0;
+  text-align: center;
+}

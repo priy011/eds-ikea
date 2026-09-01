@@ -1,0 +1,38 @@
+/*
+ * brand.css — IKEA India design tokens
+ * Extracted from https://www.ikea.com/in/en/
+ */
+
+:root {
+  /* fonts — Noto IKEA is proprietary; Noto Sans is the closest public fallback */
+  --heading-font-family: "Noto IKEA", "Noto Sans", roboto, "Open Sans", system-ui, sans-serif;
+  --body-font-family: "Noto IKEA", "Noto Sans", roboto, "Open Sans", system-ui, sans-serif;
+
+  /* colors */
+  --background-color: #fff;
+  --text-color: #484848;
+  --heading-color: #111;
+  --link-color: #111;
+  --link-hover-color: #111;
+  --light-color: #f5f5f5;
+  --dark-color: #111;
+
+  /* brand accents */
+  --brand-blue: #0058a3;
+  --brand-yellow: #ffdb00;
+  --price-color: #111;
+  --sale-price-color: #e00751;
+
+  /* spacing */
+  --section-padding: 24px;
+  --content-max-width: 1440px;
+  --nav-height: 80px;
+
+  /* heading sizes (desktop) */
+  --heading-size-xxl: 32px;
+  --heading-size-xl: 24px;
+  --heading-size-l: 24px;
+  --heading-size-m: 20px;
+  --heading-size-s: 18px;
+  --heading-size-xs: 16px;
+}

@@ -1,0 +1,42 @@
+{
+  "variantName": "carousel-nav",
+  "baseBlock": "carousel",
+  "version": "1.0.0",
+  "created": "2026-08-26T06:58:12.176Z",
+  "sourceContext": {
+    "originUrl": "https://www.ikea.com/in/en/",
+    "originPage": "IKEA India homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "category-nav",
+    "imagePattern": "icon"
+  },
+  "contentPattern": {
+    "structure": "image + short label + link per slide",
+    "buttonCount": 0,
+    "imageCount": 8
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "horizontal category / shortcut strips",
+      "compact icon+label scrollers"
+    ],
+    "notSuitableFor": [
+      "large hero showcases",
+      "product listing rows with price/rating"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/in/en/index"
+    ],
+    "sections": [
+      "rc6"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-26T06:58:12.176Z"
+  }
+}
