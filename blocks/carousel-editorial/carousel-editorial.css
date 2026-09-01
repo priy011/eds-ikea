@@ -1,0 +1,161 @@
+/* Block: carousel-editorial -- IKEA "editorial shelf" carousel */
+
+/* Values extracted from source computed styles (ikea.com/in/en, section 5). */
+
+/* Source: horizontal shelf of large cards; each card = square image on top */
+
+/* + solid-colour content panel below (title + round arrow CTA). */
+
+.carousel-editorial .carousel-editorial-slides-container {
+  position: relative;
+}
+
+.carousel-editorial .carousel-editorial-slides,
+.carousel-editorial .carousel-editorial-slide-indicators {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Horizontal shelf: cards laid out in a row, scroll-snap on overflow */
+.carousel-editorial .carousel-editorial-slides {
+  display: flex;
+  gap: 20px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  overflow: scroll clip;
+}
+
+.carousel-editorial .carousel-editorial-slides::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile: ~1 card visible with a peek of the next */
+.carousel-editorial .carousel-editorial-slide {
+  flex: 0 0 82%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 0;
+}
+
+/* Card image (square, on top) */
+.carousel-editorial .carousel-editorial-slide-image {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.carousel-editorial .carousel-editorial-slide-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-editorial .carousel-editorial-slide-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Content panel (below image) */
+.carousel-editorial .carousel-editorial-slide-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  min-height: 242px;
+  padding: 32px;
+  background-color: #007cc1; /* rgb(0, 124, 193) */
+  color: #fff;
+}
+
+/* Title: first paragraph / its link */
+.carousel-editorial .carousel-editorial-slide-content p {
+  margin: 0;
+}
+
+.carousel-editorial .carousel-editorial-slide-content p:first-child {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+}
+
+.carousel-editorial .carousel-editorial-slide-content p:first-child a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.carousel-editorial .carousel-editorial-slide-content p:first-child a:hover {
+  text-decoration: underline;
+}
+
+/* Subtitle: subsequent paragraphs */
+.carousel-editorial .carousel-editorial-slide-content p:not(:first-child) {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+}
+
+/* Round arrow CTA at the bottom of the panel */
+.carousel-editorial .carousel-editorial-slide-content::after {
+  content: '';
+  margin-top: 24px;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px currentcolor;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%3E%3Cpath%20d='M4%2012h15'%20stroke='white'%20stroke-width='1.5'/%3E%3Cpath%20d='M13%206l6%206-6%206'%20stroke='white'%20stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px 24px;
+}
+
+/* Indicators: subtle dots centred under the shelf */
+.carousel-editorial .carousel-editorial-slide-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 12px 0;
+  line-height: 0;
+}
+
+.carousel-editorial .carousel-editorial-slide-indicator button {
+  width: 8px;
+  height: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: #dadada;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.carousel-editorial .carousel-editorial-slide-indicator button:disabled,
+.carousel-editorial .carousel-editorial-slide-indicator button:hover,
+.carousel-editorial .carousel-editorial-slide-indicator button:focus-visible {
+  background-color: var(--text-color);
+}
+
+/* Prev/next arrow buttons: hidden by default (source hides them when the
+   full shelf is visible); available on smaller screens as a fallback. */
+.carousel-editorial .carousel-editorial-navigation-buttons {
+  display: none;
+}
+
+@media (width >= 900px) {
+  /* Desktop: three cards fit the content width, no scrolling needed */
+  .carousel-editorial .carousel-editorial-slide {
+    flex: 0 0 calc((100% - 40px) / 3);
+  }
+
+  /* When all cards are visible, the dot indicators are redundant */
+  .carousel-editorial nav:has(.carousel-editorial-slide-indicators) {
+    display: none;
+  }
+}

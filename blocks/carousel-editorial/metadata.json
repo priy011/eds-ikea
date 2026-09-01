@@ -1,0 +1,42 @@
+{
+  "variantName": "carousel-editorial",
+  "baseBlock": "carousel",
+  "version": "1.0.0",
+  "created": "2026-08-26T06:58:12.176Z",
+  "sourceContext": {
+    "originUrl": "https://www.ikea.com/in/en/",
+    "originPage": "IKEA India homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "editorial-shelf",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "large image + heading + CTA per slide",
+    "buttonCount": 1,
+    "imageCount": 3
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "editorial shelves with a few large story cards",
+      "feature promos with big imagery"
+    ],
+    "notSuitableFor": [
+      "dense product rows",
+      "compact nav strips"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/in/en/index"
+    ],
+    "sections": [
+      "rc9"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-26T06:58:12.176Z"
+  }
+}

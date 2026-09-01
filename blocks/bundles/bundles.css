@@ -1,0 +1,287 @@
+/* Block: bundles — "Handpicked bundles for your home"
+   Horizontal row of bundle cards: 2x2 product image grid, lifestyle image on
+   hover, click opens a product-list popup. Values follow the live IKEA card. */
+
+.bundles {
+  margin: 0;
+}
+
+.bundles .bundles-track {
+  display: flex;
+  gap: 20px;
+  padding: 8px 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.bundles .bundles-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Card --- */
+.bundles .bundles-card {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+}
+
+.bundles .bundles-card-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid #dfdfdf;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.bundles .bundles-card-trigger:hover {
+  border-color: #929292;
+}
+
+/* --- Media area: 2x2 grid + hover lifestyle image --- */
+.bundles .bundles-card-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.bundles .bundles-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+}
+
+.bundles .bundles-card-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.bundles .bundles-card-cell picture,
+.bundles .bundles-card-hover picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.bundles .bundles-card-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* hover lifestyle image sits on top, revealed on hover/focus */
+.bundles .bundles-card-hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.bundles .bundles-card-hover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bundles .bundles-card-trigger:hover .bundles-card-hover,
+.bundles .bundles-card-trigger:focus-visible .bundles-card-hover {
+  opacity: 1;
+}
+
+/* --- Card body --- */
+.bundles .bundles-card-body {
+  padding: 16px 20px 20px;
+}
+
+.bundles .bundles-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--heading-color);
+}
+
+.bundles .bundles-card-count {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--text-color);
+}
+
+/* --- Modal / popup --- */
+body.bundles-modal-lock {
+  overflow: hidden;
+}
+
+.bundles-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.bundles-modal.bundles-modal-open {
+  opacity: 1;
+}
+
+.bundles-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 50%);
+}
+
+.bundles-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(560px, 92vw);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 32px 32px 0;
+  box-shadow: 0 8px 40px rgb(0 0 0 / 25%);
+}
+
+.bundles-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--heading-color);
+}
+
+.bundles-modal-close:hover {
+  background: var(--light-color);
+}
+
+.bundles-modal-title {
+  margin: 0 40px 8px 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.bundles-modal-desc {
+  margin: 0 0 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.bundles-modal-products {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bundles-modal-product {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 0;
+  border-top: 1px solid #dfdfdf;
+}
+
+.bundles-modal-product-media {
+  flex: 0 0 88px;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bundles-modal .bundles-modal-product-media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.bundles-modal-product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bundles-modal-product-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--heading-color);
+  text-decoration: none;
+  line-height: 1.35;
+}
+
+.bundles-modal-product-name:hover {
+  text-decoration: underline;
+}
+
+.bundles-modal-product-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+/* --- Footer: total + add all --- */
+.bundles-modal-footer {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  padding: 16px 0 24px;
+  border-top: 2px solid var(--heading-color);
+}
+
+.bundles-modal-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.bundles-modal-total strong {
+  font-size: 20px;
+  color: var(--heading-color);
+}
+
+.bundles-modal-add-all.button.primary {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: var(--brand-blue);
+  border-color: var(--brand-blue);
+  color: #fff;
+  border-radius: 2.4em;
+  padding: 0.75em 1.2em;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.bundles-modal-add-all.button.primary:hover {
+  background: #004f93;
+  border-color: #004f93;
+}
+
+/* --- Responsive --- */
+@media (width >= 900px) {
+  .bundles .bundles-card {
+    flex: 0 0 320px;
+  }
+}

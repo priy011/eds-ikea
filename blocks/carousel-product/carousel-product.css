@@ -1,0 +1,300 @@
+/* carousel-product — horizontally scrolling product-deal cards
+   Values extracted from IKEA India "Today's best deals" listing carousel. */
+
+.carousel-product {
+  position: relative;
+}
+
+.carousel-product .carousel-product-slides-container {
+  position: relative;
+}
+
+/* --- scrolling row of cards --- */
+.carousel-product .carousel-product-slides,
+.carousel-product .carousel-product-slide-indicators {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-product .carousel-product-slides {
+  display: flex;
+  gap: 20px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  overflow: auto hidden;
+  padding: 8px 4px;
+}
+
+.carousel-product .carousel-product-slides::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- individual product card --- */
+.carousel-product .carousel-product-slide {
+  flex: 0 0 62vw;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 12px;
+  position: relative;
+  min-height: 0;
+  width: auto;
+  background-color: transparent;
+}
+
+@media (width >= 600px) {
+  .carousel-product .carousel-product-slide {
+    flex: 0 0 240px;
+  }
+}
+
+@media (width >= 900px) {
+  .carousel-product .carousel-product-slide {
+    flex: 0 0 260px;
+  }
+}
+
+/* reset boilerplate hero variants (center/right/overlay) */
+.carousel-product .carousel-product-slide:has(.carousel-product-slide-content[data-align='center']),
+.carousel-product .carousel-product-slide:has(.carousel-product-slide-content[data-align='right']) {
+  align-items: stretch;
+}
+
+/* --- image (top, square, product photo on white) --- */
+.carousel-product .carousel-product-slide .carousel-product-slide-image {
+  position: static;
+  background-color: #fff;
+}
+
+.carousel-product .carousel-product-slide .carousel-product-slide-image picture {
+  position: static;
+  inset: auto;
+  display: block;
+}
+
+.carousel-product .carousel-product-slide .carousel-product-slide-image picture > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* --- content (below image) --- */
+.carousel-product .carousel-product-slide .carousel-product-slide-content {
+  z-index: auto;
+  position: static;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+.carousel-product .carousel-product-slide-content p {
+  margin: 0;
+  font-size: var(--body-font-size-s); /* 14px */
+  line-height: 1.25;
+  color: var(--dark-color);
+}
+
+/* product name link (first paragraph, always has the product link) */
+.carousel-product .carousel-product-slide-content p:first-child {
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+/* --- price group (cp-* classes emitted by the parser) --- */
+
+/* description sits directly under the name, muted */
+.carousel-product .carousel-product-slide-content p.cp-desc {
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+/* current price: large + bold, with a little space above */
+.carousel-product .carousel-product-slide-content p.cp-price {
+  margin-top: 6px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--dark-color);
+}
+
+/* original / regular price: struck through and muted */
+.carousel-product .carousel-product-slide-content p.cp-was {
+  font-size: 12px;
+  color: var(--text-color);
+  text-decoration: line-through;
+}
+
+/* discount / offer message: brand sale colour */
+.carousel-product .carousel-product-slide-content p.cp-offer {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sale-price-color);
+}
+
+/* rating: small and muted */
+.carousel-product .carousel-product-slide-content p.cp-rating {
+  font-size: 12px;
+  color: var(--text-color);
+}
+
+/* misc extra copy (price-valid dates, options, top-seller): small + muted */
+.carousel-product .carousel-product-slide-content p.cp-extra {
+  font-size: 12px;
+  color: var(--text-color);
+}
+
+/* stray price fragments ("Rs." token, bare "7,990") duplicated by the clean
+   "Rs. 7990" line — hidden to avoid visual noise (content still in DOM). */
+.carousel-product .carousel-product-slide-content p.cp-fragment {
+  display: none;
+}
+
+.carousel-product .carousel-product-slide-content p:first-child a:any-link {
+  color: var(--dark-color);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.carousel-product .carousel-product-slide-content p:first-child a:hover {
+  text-decoration: underline;
+}
+
+/* --- trailing promo tile: image on top, blue panel with white text below
+   (matches the live "IKEA Family offers" card). Scoped through
+   .carousel-product-slides to keep specificity above the hero-variant reset. --- */
+.carousel-product .carousel-product-slides .carousel-product-slide:last-child {
+  gap: 0;
+  background-color: var(--brand-blue);
+}
+
+.carousel-product .carousel-product-slides .carousel-product-slide:last-child .carousel-product-slide-content {
+  flex: 1;
+  gap: 8px;
+  padding: 24px 20px 28px;
+  background-color: var(--brand-blue);
+  color: #fff;
+}
+
+.carousel-product .carousel-product-slides .carousel-product-slide:last-child .carousel-product-slide-content p {
+  color: #fff;
+}
+
+.carousel-product .carousel-product-slides .carousel-product-slide:last-child .carousel-product-slide-content p:first-child {
+  font-size: var(--heading-font-size-l); /* 24px */
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+/* Circular arrow at the bottom of the blue panel (matches the live card) */
+.carousel-product .carousel-product-slides .carousel-product-slide:last-child .carousel-product-slide-content::after {
+  content: "→";
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(255 255 255 / 70%);
+  border-radius: 50%;
+  font-size: 20px;
+  color: #fff;
+}
+
+/* --- indicators (dots) --- */
+.carousel-product .carousel-product-slide-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 8px;
+  padding: 16px 12px 4px;
+  line-height: 0;
+}
+
+.carousel-product .carousel-product-slide-indicator button {
+  width: 8px;
+  height: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: #dadada;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.carousel-product .carousel-product-slide-indicator button:disabled,
+.carousel-product .carousel-product-slide-indicator button:hover,
+.carousel-product .carousel-product-slide-indicator button:focus-visible {
+  background-color: var(--dark-color);
+}
+
+/* --- prev / next navigation buttons --- */
+.carousel-product .carousel-product-navigation-buttons {
+  position: absolute;
+  top: 31vw; /* roughly centered on the square image row (mobile) */
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@media (width >= 600px) {
+  .carousel-product .carousel-product-navigation-buttons {
+    top: 120px;
+  }
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.carousel-product .carousel-product-navigation-buttons button {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  border: 1px solid rgb(0 0 0 / 10%);
+  border-radius: 50%;
+  padding: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background-color 0.2s;
+}
+
+.carousel-product .carousel-product-navigation-buttons button:hover,
+.carousel-product .carousel-product-navigation-buttons button:focus-visible {
+  background-color: var(--light-color);
+}
+
+.carousel-product .carousel-product-navigation-buttons button::after {
+  display: block;
+  content: '';
+  border: 2px solid var(--dark-color);
+  border-bottom: 0;
+  border-left: 0;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 2px);
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.carousel-product .carousel-product-navigation-buttons button.slide-next::after {
+  transform: translate(-50%, -50%) rotate(45deg);
+  left: calc(50% - 2px);
+}

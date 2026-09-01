@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "projectType": "da"
+  },
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://www.ikea.com/in/en/"
+      ],
+      "coverageGaps": [],
+      "description": "IKEA India homepage - hero/showcase teasers, product carousels, editorial shelves, deals, category grids, header and footer",
+      "blocks": [
+        {
+          "name": "carousel-nav",
+          "instances": [
+            "body > main > article > div > div.hri-content-container > div > section.hri-section:nth-of-type(1)"
+          ]
+        },
+        {
+          "name": "hero-promo",
+          "instances": [
+            "body > main > article > div > div.hri-content-container > div > section.hri-section.hri-section--homepage-content-start > div > div > div._showcase_1xsli_1 > div.hri-teaser:nth-of-type(1)",
+            "section.hri-section--homepage-content-start ._showcase_1xsli_1 .hri-teaser__info-container",
+            "section.hri-section--homepage-content-start .hri-bento-box .hri-bento-box-card",
+            "section.hri-section--homepage-content-start .hri-teaser"
+          ]
+        },
+        {
+          "name": "cards-tile",
+          "instances": [
+            "section.hri-section--homepage-content-start ._showcase_1xsli_1 .hri-carousel__wrapper",
+            "body > main > article > div > div.hri-content-container > div > section.hri-section:nth-of-type(7)"
+          ]
+        },
+        {
+          "name": "carousel-teaser",
+          "instances": [
+            "section.hri-section:nth-of-type(4) .hri-carousel--has-scrollbar",
+            "section.hri-section:nth-of-type(6) .hri-carousel--has-scrollbar",
+            "section.hri-section:nth-of-type(8) .hri-carousel--has-scrollbar",
+            "section.hri-section:nth-of-type(11) .hri-carousel--has-scrollbar",
+            "section.hri-section:nth-of-type(12) .hri-carousel--has-scrollbar"
+          ]
+        },
+        {
+          "name": "carousel-editorial",
+          "instances": [
+            "section.hri-section:nth-of-type(5) .hri-editorial-shelf-carousel"
+          ]
+        },
+        {
+          "name": "carousel-product",
+          "instances": [
+            "section.hri-section:nth-of-type(9) .listing-carousel"
+          ]
+        },
+        {
+          "name": "carousel-gallery",
+          "instances": [
+            "section.hri-section:nth-of-type(13) .hri-carousel--has-scrollbar",
+            "section.hri-section:nth-of-type(13) .crec-carousel",
+            "section.hri-section:nth-of-type(13) .crec-carousel--has-scrollbar"
+          ]
+        },
+        {
+          "name": "cards-editorial",
+          "instances": [
+            "body > main > article > div > div.hri-content-container > div > section.hri-section:nth-of-type(10)"
+          ]
+        },
+        {
+          "name": "cards-inspiration",
+          "instances": [
+            "body > main > article > div > div.hri-content-container > div > section.hri-section:nth-of-type(14)"
+          ]
+        },
+        {
+          "name": "section-offers-tint",
+          "instances": [
+            "section.hri-section:nth-of-type(4)",
+            "section.hri-section:nth-of-type(8)",
+            "section.hri-section:nth-of-type(12)"
+          ],
+          "section": "offers-tint"
+        }
+      ]
+    }
+  ]
+}

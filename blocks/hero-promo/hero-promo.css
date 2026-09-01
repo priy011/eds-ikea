@@ -1,0 +1,144 @@
+/* Block: hero-promo -- full-width promotional hero band
+   Values extracted from IKEA India homepage storage-offer teaser card.
+   Rules are ordered by ascending specificity to satisfy no-descending-specificity. */
+
+/* Full-width band: escape the section content max-width */
+.hero-promo-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+.hero-promo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 420px;
+  overflow: hidden;
+  margin: 0;
+  background-color: var(--light-color); /* rgb(245,245,245) card fallback */
+  color: #fff;
+}
+
+/* No-image fallback: colored promotional band so it still reads as a hero */
+.hero-promo.no-image {
+  background: linear-gradient(160deg, #e8a0b8 0%, #b34a6b 55%, #5e2f3f 100%);
+}
+
+/* Supporting paragraph */
+.hero-promo p {
+  margin: 0 0 12px;
+  max-width: 640px;
+  color: #fff;
+  font-size: var(--body-font-size-m);
+  line-height: 1.5;
+}
+
+/* Image row -> full-bleed cover background behind the content */
+.hero-promo > div:has(picture, video) {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+}
+
+/* Content row -> bottom overlay strip with dark scrim for legibility */
+.hero-promo > div:not(:has(picture, video)) {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 96px 20px 24px;
+  background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 54%) 0%,
+    rgb(0 0 0 / 35%) 55%,
+    rgb(0 0 0 / 0%) 100%
+  );
+}
+
+.hero-promo > div:has(picture, video) > div,
+.hero-promo > div:has(picture, video) picture,
+.hero-promo > div:has(picture, video) > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-promo > div:has(picture, video) img,
+.hero-promo > div:has(picture, video) video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-promo > div:not(:has(picture, video)) > div {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-promo.no-image > div:not(:has(picture, video)) {
+  background: none;
+  padding-top: 40px;
+}
+
+/* Caption / CTA link -- plain white overlay text with a thin arrow (matches the
+   live overlay cards). No pill background. */
+.hero-promo p a:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  color: #fff;
+  font-family: var(--heading-font-family);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.hero-promo p a:hover,
+.hero-promo p a:focus-visible {
+  text-decoration: underline;
+}
+
+.hero-promo p a:any-link::after {
+  content: "→";
+  font-weight: 400;
+}
+
+/* Overlay title links (teaser cards: link IS the headline) */
+.hero-promo > div > div > a:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.54px;
+  text-decoration: none;
+}
+
+.hero-promo > div > div > a:any-link::after {
+  content: "→";
+  font-weight: 400;
+}
+
+@media (width >= 900px) {
+  .hero-promo {
+    min-height: 520px;
+  }
+
+  .hero-promo > div:not(:has(picture, video)) {
+    padding: 120px 40px 40px;
+  }
+
+  .hero-promo > div > div > a:any-link {
+    font-size: 32px;
+    line-height: 38px;
+  }
+}

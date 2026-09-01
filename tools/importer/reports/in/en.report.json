@@ -1,0 +1,27 @@
+{
+  "status": "success",
+  "url": "https://www.ikea.com/in/en/",
+  "path": "in/en",
+  "timestamp": "2026-08-26T09:56:27.947Z",
+  "title": "IKEA India-Affordable home furniture, designs & ideas - IKEA",
+  "template": "homepage",
+  "blocks": [
+    "carousel-nav",
+    "hero-promo",
+    "hero-promo",
+    "hero-promo",
+    "hero-promo",
+    "hero-promo",
+    "cards-tile",
+    "carousel-teaser",
+    "carousel-teaser",
+    "carousel-teaser",
+    "carousel-teaser",
+    "carousel-teaser",
+    "carousel-editorial",
+    "carousel-product",
+    "carousel-gallery",
+    "cards-editorial",
+    "cards-inspiration"
+  ]
+}

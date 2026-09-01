@@ -10,63 +10,48 @@
  * governing permissions and limitations under the License.
  */
 
-:root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+@import url('brand.css');
 
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+:root {
+  /* colors (mapped to brand.css tokens) */
+  --background-color: #fff;
+  --light-color: #f5f5f5;
+  --dark-color: #111;
+  --text-color: #484848;
+  --link-color: #111;
+  --link-hover-color: #111;
 
   /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
+  --body-font-size-m: 16px;
+  --body-font-size-s: 14px;
+  --body-font-size-xs: 12px;
 
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
+  /* heading sizes (mobile-first) */
+  --heading-font-size-xxl: 36px;
+  --heading-font-size-xl: 28px;
+  --heading-font-size-l: 24px;
+  --heading-font-size-m: 20px;
+  --heading-font-size-s: 18px;
+  --heading-font-size-xs: 16px;
 
   /* nav height */
-  --nav-height: 64px;
-}
-
-/* fallback fonts */
-@font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
-  src: local('Arial');
-}
-
-@font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
-  src: local('Arial');
+  --nav-height: 80px;
 }
 
 @media (width >= 900px) {
   :root {
     /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
+    --body-font-size-m: 16px;
+    --body-font-size-s: 14px;
+    --body-font-size-xs: 12px;
 
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
+    /* heading sizes (desktop) */
+    --heading-font-size-xxl: 32px;
+    --heading-font-size-xl: 24px;
+    --heading-font-size-l: 24px;
+    --heading-font-size-m: 20px;
+    --heading-font-size-s: 18px;
+    --heading-font-size-xs: 16px;
   }
 }
 
@@ -77,7 +62,7 @@ body {
   color: var(--text-color);
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 body.appear {
@@ -106,9 +91,11 @@ h5,
 h6 {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
+  color: var(--heading-color);
   font-family: var(--heading-font-family);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.25;
+  letter-spacing: -0.01em;
   scroll-margin: 40px;
 }
 
@@ -300,9 +287,12 @@ main > .section {
   margin: 40px 0;
 }
 
+/* Single-section homepage: the whole page is one .section, so the boilerplate's
+   per-section 40px margin only pads the page top/bottom. The 56px top margin here
+   restores vertical rhythm between the stacked showcases (heading + block). */
 main > .section > div {
-  max-width: 1200px;
-  margin: auto;
+  max-width: var(--content-max-width);
+  margin: 56px auto 0;
   padding: 0 24px;
 }
 
@@ -310,10 +300,42 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
+main > .section > div:first-child {
+  margin-top: 0;
+}
+
+/* a block sits tight under its own heading (default-content-wrapper) */
+main > .section > .default-content-wrapper + div {
+  margin-top: 16px;
+}
+
 @media (width >= 900px) {
   main > .section > div {
-    padding: 0 32px;
+    padding: 0 40px;
   }
+}
+
+/* Carousel scroll-progress bar (shared by all carousel-* blocks) -- a thin
+   horizontal track with a dark thumb sized to the visible fraction, matching the
+   live IKEA carousels (replaces dot indicators). */
+.carousel-scrollbar {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  margin: 24px auto 0;
+  border-radius: 4px;
+  background-color: #dfdfdf;
+}
+
+.carousel-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 20%;
+  border-radius: 4px;
+  background-color: var(--dark-color);
+  transition: left 0.1s linear;
 }
 
 /* section metadata */
@@ -322,4 +344,77 @@ main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+}
+
+/* IKEA tinted showcase sections (rc8/rc12/rc16 -> style: offers-tint) */
+main .section.offers-tint {
+  background-color: var(--light-color);
+  margin: 0;
+  padding: 40px 0;
+}
+
+/* Bento layout: groups a run of hero-promo blocks (Storage offer hero + 4 offer
+   tiles) into a grid. Mobile: single column stack. Desktop: big hero on the
+   left, four offer tiles as a 2x2 grid on the right. */
+main .section .bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 40px 0;
+}
+
+main .section .bento .hero-promo-wrapper {
+  margin: 0;
+}
+
+main .section .bento .hero-promo {
+  min-height: 260px;
+}
+
+@media (width >= 900px) {
+  /* Two halves: hero fills the left half; the four tiles form a staggered 2x2 on
+     the right (matching live) -- left column is short-over-tall, right column is
+     tall-over-short. A thin middle row track creates the vertical offset. */
+  main .section .bento {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 44fr 12fr 44fr;
+  }
+
+  /* First block (Storage offer hero) fills the whole left half */
+  main .section .bento .hero-promo-wrapper:first-child {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 3;
+  }
+
+  /* Right column A: short living-room tile on top, tall chest tile below */
+  main .section .bento .hero-promo-wrapper:nth-child(2) {
+    grid-column: 3;
+    grid-row: 1 / span 1;
+  }
+
+  main .section .bento .hero-promo-wrapper:nth-child(4) {
+    grid-column: 3;
+    grid-row: 2 / span 2;
+  }
+
+  /* Right column B: tall wardrobe tile on top, short home-desk tile below */
+  main .section .bento .hero-promo-wrapper:nth-child(3) {
+    grid-column: 4;
+    grid-row: 1 / span 2;
+  }
+
+  main .section .bento .hero-promo-wrapper:nth-child(5) {
+    grid-column: 4;
+    grid-row: 3 / span 1;
+  }
+
+  main .section .bento .hero-promo-wrapper .hero-promo {
+    height: 100%;
+    min-height: 0;
+  }
+
+  /* Hero drives the overall bento height; fr row tracks split it for the tiles */
+  main .section .bento .hero-promo-wrapper:first-child .hero-promo {
+    min-height: 600px;
+  }
 }

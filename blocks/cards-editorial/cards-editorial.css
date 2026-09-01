@@ -1,0 +1,163 @@
+/* Block: cards-editorial -- editorial bento mosaic with text overlaid on large images.
+   Values extracted from source computed styles (IKEA India homepage, section 10). */
+
+/* ---- Grid container ---- */
+.cards-editorial > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* ---- Card ---- */
+.cards-editorial > ul > li {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background-color: var(--dark-color); /* fallback for cards with no imported image */
+}
+
+/* Image fills the card */
+.cards-editorial .cards-editorial-card-image {
+  position: absolute;
+  inset: 0;
+  line-height: 0;
+}
+
+.cards-editorial .cards-editorial-card-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cards-editorial > ul > li img,
+.cards-editorial > ul > li video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gradient scrim for legibility (extracted from source) */
+.cards-editorial > ul > li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 200px;
+  z-index: 1;
+  pointer-events: none;
+  background-image: linear-gradient(to top,
+    rgb(0 0 0 / 54%) 0, rgb(0 0 0 / 52%) 6%, rgb(0 0 0 / 48%) 11%,
+    rgb(0 0 0 / 43%) 16%, rgb(0 0 0 / 38%) 20%, rgb(0 0 0 / 31%) 25%,
+    rgb(0 0 0 / 25%) 31%, rgb(0 0 0 / 19%) 38%, rgb(0 0 0 / 13%) 46%,
+    rgb(0 0 0 / 8%) 56%, rgb(0 0 0 / 4%) 68%, rgb(0 0 0 / 1%) 83%,
+    rgb(0 0 0 / 0%) 100%);
+}
+
+/* ---- Overlaid text body ----
+   Pinned over the whole card so text sits at the bottom regardless of whether
+   the card has an image cell (some cards import without an image). Empty body
+   divs overlay invisibly. */
+.cards-editorial .cards-editorial-card-body {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 0 20px 24px;
+  color: #fff;
+  pointer-events: none;
+}
+
+.cards-editorial .cards-editorial-card-body a {
+  pointer-events: auto;
+}
+
+/* "New" label (a bare paragraph, no link) */
+.cards-editorial .cards-editorial-card-body p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0.05px;
+  color: #fff;
+}
+
+/* Title (paragraph containing the link) */
+.cards-editorial .cards-editorial-card-body p:has(a) {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: -0.54px;
+}
+
+/* Title link -- override global link color/decoration for overlay */
+.cards-editorial .cards-editorial-card-body a:any-link {
+  display: inline;
+  color: #fff;
+  font: inherit;
+  text-decoration: none;
+}
+
+.cards-editorial .cards-editorial-card-body a:hover {
+  text-decoration: underline;
+}
+
+/* Reset EDS button auto-decoration in case links get buttonized */
+.cards-editorial .cards-editorial-card-body a.button:any-link {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  white-space: normal;
+  overflow: visible;
+}
+
+.cards-editorial .cards-editorial-card-body .button-container {
+  margin: 0;
+}
+
+/* Text-only promo card (source: orange tile with "New" label + link, no image).
+   Identified by having no image cell and a body with two paragraphs
+   (label + title). */
+.cards-editorial > ul > li:not(:has(.cards-editorial-card-image)):has(.cards-editorial-card-body p + p) {
+  background-color: rgb(202 80 8);
+}
+
+/* No image behind it, so the scrim is unnecessary on this card. */
+.cards-editorial > ul > li:not(:has(.cards-editorial-card-image)):has(.cards-editorial-card-body p + p)::after {
+  display: none;
+}
+
+/* ---- Desktop: asymmetric bento mosaic ---- */
+@media (width >= 900px) {
+  .cards-editorial > ul {
+    grid-template:
+      "a a b c" 3.35fr
+      "a a d c" 1fr
+      "a a d e" 3.35fr
+      / 1fr 1fr 1fr 1fr;
+    aspect-ratio: 1344 / 778;
+  }
+
+  .cards-editorial > ul > li {
+    aspect-ratio: auto;
+  }
+
+  .cards-editorial > ul > li:nth-child(1) { grid-area: a; }
+  .cards-editorial > ul > li:nth-child(2) { grid-area: b; }
+  .cards-editorial > ul > li:nth-child(3) { grid-area: c; }
+  .cards-editorial > ul > li:nth-child(4) { grid-area: d; }
+  .cards-editorial > ul > li:nth-child(5) { grid-area: e; }
+}

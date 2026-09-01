@@ -1,0 +1,108 @@
+/* Block: cards-tile -- "Small storage & organisers" category bento.
+   Live design: a large tile on the left plus a grid of smaller tiles, every tile
+   a full-bleed image with the caption overlaid in white at the bottom + an arrow.
+   Values follow the source hri-bento-box / hri-text-overlay-card. */
+
+.cards-tile > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.cards-tile > ul > li {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background-color: var(--light-color);
+  aspect-ratio: 1 / 1;
+}
+
+/* Full-bleed image */
+.cards-tile .cards-tile-card-image {
+  position: absolute;
+  inset: 0;
+  line-height: 0;
+}
+
+.cards-tile .cards-tile-card-image picture,
+.cards-tile .cards-tile-card-image img,
+.cards-tile .cards-tile-card-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cards-tile .cards-tile-card-image img,
+.cards-tile .cards-tile-card-video video {
+  object-fit: cover;
+}
+
+/* Caption overlaid at the bottom with a dark scrim for legibility */
+.cards-tile .cards-tile-card-body {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  margin: 0;
+  padding: 48px 20px 20px;
+  background: linear-gradient(to top, rgb(0 0 0 / 55%) 0%, rgb(0 0 0 / 25%) 55%, rgb(0 0 0 / 0%) 100%);
+}
+
+/* Empty body div (parser emits a spare cell) should not paint a scrim */
+.cards-tile .cards-tile-card-body:empty {
+  display: none;
+}
+
+.cards-tile .cards-tile-card-body a:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.cards-tile .cards-tile-card-body a:any-link::after {
+  content: '→';
+  font-weight: 400;
+}
+
+.cards-tile .cards-tile-card-body a:hover {
+  text-decoration: underline;
+}
+
+/* Image-less tile (large "Small storage" tile lost its image on import):
+   keep a neutral band and dark caption so it still reads correctly. */
+.cards-tile > ul > li:not(:has(.cards-tile-card-image)) .cards-tile-card-body {
+  background: none;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+}
+
+.cards-tile > ul > li:not(:has(.cards-tile-card-image)) .cards-tile-card-body a:any-link {
+  color: var(--heading-color);
+}
+
+/* --- Desktop: bento mosaic — large tile left, four tiles as 2x2 on the right --- */
+@media (width >= 900px) {
+  .cards-tile > ul {
+    /* two square tiles + gap per right-hand column pair define the row height */
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 320px);
+  }
+
+  .cards-tile > ul > li {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .cards-tile > ul > li:first-child {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+  }
+}

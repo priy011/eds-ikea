@@ -1,0 +1,11 @@
+{
+  "type": "da",
+  "sites": {
+    "eds-ikea": {
+      "previewOrg": "priy011",
+      "previewSite": "eds-ikea",
+      "contentHostUrl": "https://content.da.live/priy011/eds-ikea/",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}
